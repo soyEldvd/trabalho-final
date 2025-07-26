@@ -1,6 +1,7 @@
 #include "funcoes.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
 
 int proximo;
 
@@ -79,3 +80,29 @@ Jogos *adicionar_jogo(Jogos *v, int *tamanho, Jogos novo){
 
     return v;
 }
+
+void listar_jogo(Jogos *v, int tamanho){
+    system("clear");
+    if(tamanho == 0){
+        printf("Aqui não há nenhum easter-egg então vá embora!!\n");
+        sleep(2);
+        system("clear");
+        inicializar();
+        return;
+    }
+
+    printf("\nLISTA DE JOGOS \(^___^)/\n");
+    printf("%-10s %-30s %-20s %-15s %s\n", "ID", "NOME", "GÊNERO", "CONQUISTAS", "PROGRESSO");
+    printf("------------------------------------------------------------\n");
+        for(int i = 0; i < tamanho; i++){
+            printf("%-10d %-30s %-20s %d/%-15d %.1f%%\n",
+            v[i].id,
+            v[i].nome,
+            v[i].genero,
+            v[i].conquistas,
+            v[i].max,
+            v[i].progresso);
+        }
+
+}
+

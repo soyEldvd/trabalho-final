@@ -16,5 +16,6 @@ void inicializar();
 void ordenaAlfabetica(Jogos *lista, int tamanho);
 void ordenaID(Jogos *lista, int tamanho);
 Jogos *adicionar_jogo(Jogos *v, int *tamanho, Jogos novo);
+void listar_jogo(Jogos *v, int tamanho);
 
 #endif
