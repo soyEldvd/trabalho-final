@@ -57,3 +57,22 @@ void inicializar(){
     printf("\n");
     printf("Sua agenda favorita de jogos ;)\n\n");
 }
+
+Jogos *adicionar_jogo(Jogos *v, int *tamanho, Jogos novo){
+    novo.progresso = 100 * ((float)novo.conquistas/novo.max);
+    novo.id = proximo++;
+    Jogos *temp = realloc(v, (*tamanho + 1) * sizeof(Jogos));
+
+    if(temp == NULL){
+        printf("\nERRO NA ALOCAÇÃO DE MEMORIA\n");
+        free(v);
+        exit(EXIT_FAILURE);
+    }
+
+    v = temp;
+
+    v[*tamanho] = novo;
+    *tamanho = *tamanho + 1;
+
+    return v;
+}
