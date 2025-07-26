@@ -3,8 +3,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int proximo = 0;
-
 void listar_jogo(Jogos *v, int tamanho){
     system("clear");
     if(tamanho == 0){
@@ -28,25 +26,6 @@ void listar_jogo(Jogos *v, int tamanho){
             v[i].progresso);
         }
 
-}
-
-Jogos *adicionar_jogo(Jogos *v, int *tamanho, Jogos novo){
-    novo.progresso = 100 * ((float)novo.conquistas/novo.max);
-    novo.id = proximo++;
-    Jogos *temp = realloc(v, (*tamanho + 1) * sizeof(Jogos));
-
-    if(temp == NULL){
-        printf("\nERRO NA ALOCAÇÃO DE MEMORIA\n");
-        free(v);
-        exit(EXIT_FAILURE);
-    }
-
-    v = temp;
-
-    v[*tamanho] = novo;
-    *tamanho = *tamanho + 1;
-
-    return v;
 }
 
 Jogos *remover_jogo(Jogos *v, int *tamanho){
