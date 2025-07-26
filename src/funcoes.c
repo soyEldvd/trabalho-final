@@ -106,3 +106,83 @@ void listar_jogo(Jogos *v, int tamanho){
 
 }
 
+Jogos *remover_jogo(Jogos *v, int *tamanho){
+    if(*tamanho <= 0){
+        system("clear");
+        printf("\nNão há nenhum jogo adicionado!\n");
+        sleep(2);
+        system("clear");
+        inicializar();
+        return v;
+    }
+    int op;
+    system("clear");
+    printf("Digite a maneira como deseja remover o jogo\n");
+    printf("1. Quero remover pelo ID\n");
+    printf("2. Quero remover pelo nome\n");
+    scanf("%d", &op);
+
+    int index = -1;
+
+    if(op == 1){
+        int id;
+        printf("Digite o id do jogo: ");
+        scanf("%d", &id);
+        for(int i = 0; i < *tamanho; i++){
+            if(v[i].id == id){
+                index = i;
+                break;
+            }
+        }
+    }
+
+    if(op == 2){
+        char nome[50];
+        printf("Digite o nome do jogo: ");
+        scanf(" %[^\n]", nome);
+        for(int i = 0; i < *tamanho; i++){
+            if(comparaString(v[i].nome, nome) == 0){
+                index = i;
+                break;
+            }
+        }
+    }
+
+    if(index == -1){
+        printf("O jogo não foi encontrado!!\n");
+        sleep(2);
+        return v;
+    }
+
+    int conf;
+    printf("\nO jogo que esta prestes a ser removido:\n");
+    printf("ID: %d\n", v[index].id);
+    printf("Nome: %s\n", v[index].nome);
+    printf("Realmente deseja removê-lo?\n1 = sim\t0 = nao: ");
+    scanf("%d", &conf);
+
+    if(conf != 1){
+        printf("Remoção cancelada\n");
+        return v;
+    }
+    
+    for(int i = index; i < *tamanho; i++){
+        v[i] = v[i + 1];
+    }
+    *tamanho = *tamanho - 1;
+
+    Jogos *temp = realloc(v, (*tamanho) * sizeof(Jogos));
+    
+    if(temp == NULL && *tamanho != 0){
+        printf("ERRO NA ALOCAÇÃO DE MEMÓRIA\n");
+        free(v);
+        exit(EXIT_FAILURE);
+    }
+
+    v = temp;
+    printf("\nRemoção feita com sucesso!\n");
+    sleep(1.5);
+    system("clear");
+    inicializar();
+    return v;
+}
