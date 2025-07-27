@@ -11,12 +11,13 @@ struct Jogos{
 };
 typedef struct Jogos Jogos;
 
-int comparaString(char *s1, char *s2);
 void inicializar();
-void ordenaAlfabetica(Jogos *lista, int tamanho);
+void ordenaAlfabetica(Jogos *v, int tamanho);
 void ordenaID(Jogos *lista, int tamanho);
-Jogos *adicionar_jogo(Jogos *v, int *tamanho, Jogos novo);
 void listar_jogo(Jogos *v, int tamanho);
+void salvar_jogo(Jogos *v, int tamanho);
+int comparaString(char *s1, char *s2);
+Jogos *adicionar_jogo(Jogos *v, int *tamanho, Jogos novo);
 Jogos *remover_jogo(Jogos *v, int *tamanho);
 
 #endif

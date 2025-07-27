@@ -63,14 +63,15 @@ int main(){
                 }while(novo.conquistas > novo.max);
 
                 V = adicionar_jogo(V, &tam, novo);
-                
                 printf("\nJogo adicionado!\n");
+                salvar_jogo(V, tam);
                 sleep(2);
                 system("clear");
             break;
 
             case 'r' : case 'R':
                 V = remover_jogo(V, &tam);
+                salvar_jogo(V, tam);
             break;
 
             case 's' : case 'S':

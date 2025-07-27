@@ -14,37 +14,37 @@ int comparaString(char *s1, char *s2){
     return 0;
 }
 
-void ordenaAlfabetica(Jogos *lista, int tamanho){
+void ordenaAlfabetica(Jogos *v, int tamanho){
     Jogos temp; 
     int menor_id;
 
     for(int i = 0; i < tamanho - 1; i++){
         menor_id = i;
         for(int j = i; j < tamanho; j++){
-            if(comparaString(lista[j].nome, lista[menor_id].nome) < 0){
+            if(comparaString(v[j].nome, v[menor_id].nome) < 0){
                 menor_id = j;
             }
         }
-        temp = lista[i];
-        lista[i] = lista[menor_id];
-        lista[menor_id] = temp;
+        temp = v[i];
+        v[i] = v[menor_id];
+        v[menor_id] = temp;
     }
 }
 
-void ordenaID(Jogos *lista, int tamanho){
+void ordenaID(Jogos *v, int tamanho){
     Jogos temp;
     int menor_id;
 
     for(int i = 0; i < tamanho - 1; i++){
         menor_id = i;
         for(int j = i; j < tamanho; j++){
-            if(lista[j].id < lista[menor_id].id){
+            if(v[j].id < v[menor_id].id){
                 menor_id = j;
             }
         }
-        temp = lista[i];
-        lista[i] = lista[menor_id];
-        lista[menor_id] = temp;
+        temp = v[i];
+        v[i] = v[menor_id];
+        v[menor_id] = temp;
     }
 }
 
@@ -185,4 +185,25 @@ Jogos *remover_jogo(Jogos *v, int *tamanho){
     system("clear");
     inicializar();
     return v;
+}
+
+void salvar_jogo(Jogos *v, int tamanho){
+    FILE *arquivo = fopen("dados.txt", "w");
+    if(arquivo == NULL){
+        printf("Erro ao abrir o arquivo para escrita\n");
+        exit(EXIT_FAILURE);
+    }
+
+    fprintf(arquivo, "%d\n", tamanho);
+
+    for(int i = 0; i < tamanho; i++){
+        fprintf(arquivo, "%d\n", v[i].id);
+        fprintf(arquivo, "%s\n", v[i].nome);
+        fprintf(arquivo, "%s\n", v[i].genero);
+        fprintf(arquivo, "%d\n", v[i].max);
+        fprintf(arquivo, "%d\n", v[i].conquistas);
+        fprintf(arquivo, "%f\n", v[i].progresso);
+    }
+
+    fclose(arquivo);
 }
