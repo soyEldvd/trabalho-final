@@ -19,5 +19,5 @@ void salvar_jogo(Jogos *v, int tamanho);
 int comparaString(char *s1, char *s2);
 Jogos *adicionar_jogo(Jogos *v, int *tamanho, Jogos novo);
 Jogos *remover_jogo(Jogos *v, int *tamanho);
-
+Jogos *carregar_jogo(int *tamanho);
 #endif

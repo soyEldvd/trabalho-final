@@ -207,3 +207,29 @@ void salvar_jogo(Jogos *v, int tamanho){
 
     fclose(arquivo);
 }
+
+Jogos *carregar_jogo(int *tamanho){
+    FILE *arquivo = fopen("dados.txt", "r");
+    if(arquivo == NULL){
+        *tamanho = 0;
+        return malloc(*tamanho * sizeof(Jogos));
+    }
+    
+    int n;
+    fscanf(arquivo, "%d", &n);
+    *tamanho = n;
+
+    Jogos* lista = malloc(n * sizeof(Jogos));
+
+    for(int i = 0; i < n; i++){
+        fscanf(arquivo, "%d", &lista[i].id);
+        fscanf(arquivo, " %[^\n]", lista[i].nome);
+        fscanf(arquivo, " %[^\n]", lista[i].genero);
+        fscanf(arquivo, "%d", &lista[i].max);
+        fscanf(arquivo, "%d", &lista[i].conquistas);
+        fscanf(arquivo, "%f", &lista[i].progresso);
+    }
+
+    fclose(arquivo);
+    return lista;
+}

@@ -5,9 +5,8 @@
 
 int main(){
     inicializar();
-    
-    Jogos *V = NULL;
-    int tam = 0;
+    int tam;
+    Jogos *V = carregar_jogo(&tam);
 
     while(1){
         printf("\n");
