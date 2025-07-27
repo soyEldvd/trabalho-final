@@ -1,25 +1,13 @@
-4
-1
-GTA 3
-mundo aberto
-69
-33
-47.826088
 2
-dark souls 2
-soulslike
-78
-12
-15.384616
+1
+Claro's Adventures 2
+Plataforma
+777
+600
+77.220078
 0
-minecraft
-sandbox
-111
-50
-45.045044
-4
-aventuras de claro
-plataforma
-100
-100
+The Last Of Us
+acao e aventura
+350
+350
 100.000000

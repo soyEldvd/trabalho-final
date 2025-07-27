@@ -14,6 +14,7 @@ int main(){
         printf("#############################\n");
         printf("## [L]istar jogos          ##\n");
         printf("## [C]adastrar novo jogo   ##\n");
+        printf("## [E]ditar lista de jogos ##\n");
         printf("## [R]emover um jogo       ##\n");
         printf("## [S]air da PS-POBRE      ##\n");
         printf("#############################\n");        
@@ -73,6 +74,11 @@ int main(){
                 salvar_jogo(V, tam);
             break;
 
+            case 'e' : case 'E':
+                V = editar_jogo(V, &tam);
+                salvar_jogo(V, tam);
+            break;
+            
             case 's' : case 'S':
                 free(V);
                 return 0;

@@ -3,8 +3,6 @@
 #include <stdio.h>
 #include <unistd.h>
 
-int proximo;
-
 int comparaString(char *s1, char *s2){
     for(int i = 0; s1[i] != '\0' || s2[i] != '\0'; i++){
         if(s1[i] < s2[i]) return -1; //se s2 for maior bota -1
@@ -64,7 +62,16 @@ void inicializar(){
 
 Jogos *adicionar_jogo(Jogos *v, int *tamanho, Jogos novo){
     novo.progresso = 100 * ((float)novo.conquistas/novo.max);
-    novo.id = proximo++;
+    
+    FILE *arquivo = fopen("dados.txt", "r");
+    if(arquivo == NULL){
+        printf("Falha ao abrir o arquivo\n");
+        exit(EXIT_FAILURE);
+    }
+    int aux;
+    fscanf(arquivo, "%d", &aux);
+    novo.id = aux;
+
     Jogos *temp = realloc(v, (*tamanho + 1) * sizeof(Jogos));
 
     if(temp == NULL){
@@ -232,4 +239,92 @@ Jogos *carregar_jogo(int *tamanho){
 
     fclose(arquivo);
     return lista;
+}
+
+Jogos *editar_jogo(Jogos *v, int *tamanho){
+    if(*tamanho <= 0){
+        system("clear");
+        printf("Não há nenhum jogo na lista para ser editado\n");
+        sleep(1);
+        system("clear");
+        inicializar();
+        return v;
+    }
+
+    listar_jogo(v, *tamanho);
+    int index = -1;
+    int aux;
+    printf("Digite o id do jogo que voce pretende editar\n");
+    scanf("%d", &aux);
+
+    for(int i = 0; i < *tamanho; i++){
+        if(aux == v[i].id){
+            index = i;
+            break;
+        }
+    }
+    if(index == -1){
+        system("clear");
+        printf(":(\n");
+        printf("Esse jogo não tá na lista!\n");
+        sleep(1);
+        return v;
+    }
+
+    printf("\n#################################\n");
+    printf("#  O QUE DESEJA EDITAR?         #\n");
+    printf("#################################\n");
+    printf("# 1. Nome                       #\n");
+    printf("# 2. Gênero                     #\n");
+    printf("# 3. Conquistas                 #\n");
+    printf("# 0. Cancelar                   #\n");
+    printf("#################################\n");
+    printf("▸ Escolha uma opção: ");
+
+    int op;
+    scanf("%d", &op);
+
+    switch (op){
+    case 1:
+        printf("Digite o novo nome [atual %s]: ", v[index].nome);
+        scanf(" %[^\n]", v[index].nome);
+        system("clear");
+        printf("NOME ATUALIZADO COM SUCESSO\n");
+        break;
+    
+    case 2:
+        printf("Digite o novo gênero [atual %s]: ", v[index].genero);
+        scanf(" %[^\n]", v[index].genero);
+        system("clear");
+        printf("NOME ATUALIZADO COM SUCESSO\n");
+        break;
+
+    case 3:
+            int temp = v[index].conquistas;
+        do{
+            printf("Digite as suas novas conquistas: ");
+            scanf("%d", &v[index].conquistas);
+
+            if(v[index].conquistas > v[index].max){
+                printf("Suas conquistas não podem ser maior que %d!\n", v[index].max);
+            }
+            if(v[index].conquistas < temp){
+                printf("Não é possível perde conquistas\n Digite um valor acima de %d\n", temp);
+            }
+        }while(v[index].conquistas > v[index].max || v[index].conquistas < temp);
+
+        system("clear");
+        printf("CONQUISTAS ADICIONADAS COM SUCESSO!\n");
+        v[index].progresso = 100 * ((float)v[index].conquistas / v[index].max);
+        
+    break;
+
+
+    default:
+        printf("Opção INválida\n");
+        return v;
+        break;
+    }
+
+    return v;
 }
